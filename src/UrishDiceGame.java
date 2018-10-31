@@ -119,7 +119,7 @@ public class UrishDiceGame {
 
     private void runGameLoop(int startPlayer){
         rounds = 0;
-        while(rounds < 13){
+        while(rounds < 1){
             rounds++;
             System.out.printf("Round %d\n", rounds);
             try {
@@ -134,6 +134,15 @@ public class UrishDiceGame {
                 runTurn(currentPlayer);
             }
         }
+        Player bigBoy = players.get(0);
+        for(Player p : players){
+            if(p.getTotalScore(-1,false) > bigBoy.getTotalScore(-1,false)){
+                bigBoy = p;
+            }
+        }
+        System.out.printf("Player %d wins!!!\n", bigBoy.getNum());
+        System.out.println("Final scorecard...");
+        printScorecard(bigBoy,false);
     }
 
     private void runTurn(Player player){
@@ -320,7 +329,7 @@ public class UrishDiceGame {
         if(player.getLowerScores(2) == -1) System.out.printf("\t(9) Lower Full House Score: %d \n",calcLowerScore(LowerCats.FullHouse, jokerRules));
         if(player.getLowerScores(3) == -1) System.out.printf("\t(10) Lower Small Straight Score: %d \n",calcLowerScore(LowerCats.SmallStraight, jokerRules));
         if(player.getLowerScores(4) == -1) System.out.printf("\t(11) Lower Large Straight Score: %d \n",calcLowerScore(LowerCats.LargeStraight, jokerRules));
-        if(player.getLowerScores(5) == -1) System.out.printf("\t(12) Lower YAHTZEE Score: %d \n",calcLowerScore(LowerCats.YAHTZEE, jokerRules));
+        if(player.getLowerScores(5) == -1 || player.getLowerScores(5) >= 10) System.out.printf("\t(12) Lower YAHTZEE Score: %d \n",calcLowerScore(LowerCats.YAHTZEE, jokerRules));
         if(player.getLowerScores(6) == -1) System.out.printf("\t(13) Lower Chance Score: %d \n",calcLowerScore(LowerCats.Chance, jokerRules));
     }
 
