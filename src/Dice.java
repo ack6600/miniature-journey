@@ -13,6 +13,12 @@ public class Dice {
         return value;
     }
 
+    //FOR TESTING ONLY
+    public String setValue(int value){
+        this.value = value;
+        return this.toString();
+    }
+
     private void roll() {
         value = (int) (Math.random() * sides) + 1;
     }
