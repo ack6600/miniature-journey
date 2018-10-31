@@ -188,8 +188,11 @@ public class UrishDiceGame {
             in = sc.nextLine();
             for(char c : in.toCharArray()){
                 int toReroll = Character.getNumericValue(c) - 1;
-                if(toReroll > 0 && toReroll < 5)
-                    dice[toReroll].getValue(true);
+                if(toReroll >= 0 && toReroll < 5) {
+                    int old = dice[toReroll].getValue(false);
+                    while(dice[toReroll].getValue(false) == old)
+                        dice[toReroll].getValue(true);
+                }
             }
             rolls++;
             showDice(false);
@@ -306,19 +309,19 @@ public class UrishDiceGame {
     }
 
     private void calcPossibleScores(boolean jokerRules, Player player){
-        if(player.getUpperScores(0) == -1) System.out.printf("\tUpper Ones Score: %d (1)\n",calcSingleTotal(1));
-        if(player.getUpperScores(1) == -1) System.out.printf("\tUpper Twos Score: %d (2)\n",calcSingleTotal(2));
-        if(player.getUpperScores(2) == -1) System.out.printf("\tUpper Threes Score: %d (3)\n",calcSingleTotal(3));
-        if(player.getUpperScores(3) == -1) System.out.printf("\tUpper Fours Score: %d (4)\n",calcSingleTotal(4));
-        if(player.getUpperScores(4) == -1) System.out.printf("\tUpper Fives Score: %d (5)\n",calcSingleTotal(5));
-        if(player.getUpperScores(5) == -1) System.out.printf("\tUpper Sixes Score: %d (6)\n",calcSingleTotal(6));
-        if(player.getLowerScores(0) == -1) System.out.printf("\tLower 3 of a Kind Score: %d (7)\n",calcLowerScore(LowerCats.ThreeOfAKind, jokerRules));
-        if(player.getLowerScores(1) == -1) System.out.printf("\tLower 4 of a Kind Score: %d (8)\n",calcLowerScore(LowerCats.FourOfAKind, jokerRules));
-        if(player.getLowerScores(2) == -1) System.out.printf("\tLower Full House Score: %d (9)\n",calcLowerScore(LowerCats.FullHouse, jokerRules));
-        if(player.getLowerScores(3) == -1) System.out.printf("\tLower Small Straight Score: %d (10)\n",calcLowerScore(LowerCats.SmallStraight, jokerRules));
-        if(player.getLowerScores(4) == -1) System.out.printf("\tLower Large Straight Score: %d (11)\n",calcLowerScore(LowerCats.LargeStraight, jokerRules));
-        if(player.getLowerScores(5) == -1) System.out.printf("\tLower YAHTZEE Score: %d (12)\n",calcLowerScore(LowerCats.YAHTZEE, jokerRules));
-        if(player.getLowerScores(6) == -1) System.out.printf("\tLower Chance Score: %d (13)\n",calcLowerScore(LowerCats.Chance, jokerRules));
+        if(player.getUpperScores(0) == -1) System.out.printf("\t(1) Upper Ones Score: %d \n",calcSingleTotal(1));
+        if(player.getUpperScores(1) == -1) System.out.printf("\t(2) Upper Twos Score: %d \n",calcSingleTotal(2));
+        if(player.getUpperScores(2) == -1) System.out.printf("\t(3) Upper Threes Score: %d \n",calcSingleTotal(3));
+        if(player.getUpperScores(3) == -1) System.out.printf("\t(4) Upper Fours Score: %d \n",calcSingleTotal(4));
+        if(player.getUpperScores(4) == -1) System.out.printf("\t(5) Upper Fives Score: %d \n",calcSingleTotal(5));
+        if(player.getUpperScores(5) == -1) System.out.printf("\t(6) Upper Sixes Score: %d \n",calcSingleTotal(6));
+        if(player.getLowerScores(0) == -1) System.out.printf("\t(7) Lower 3 of a Kind Score: %d \n",calcLowerScore(LowerCats.ThreeOfAKind, jokerRules));
+        if(player.getLowerScores(1) == -1) System.out.printf("\t(8) Lower 4 of a Kind Score: %d \n",calcLowerScore(LowerCats.FourOfAKind, jokerRules));
+        if(player.getLowerScores(2) == -1) System.out.printf("\t(9) Lower Full House Score: %d \n",calcLowerScore(LowerCats.FullHouse, jokerRules));
+        if(player.getLowerScores(3) == -1) System.out.printf("\t(10) Lower Small Straight Score: %d \n",calcLowerScore(LowerCats.SmallStraight, jokerRules));
+        if(player.getLowerScores(4) == -1) System.out.printf("\t(11) Lower Large Straight Score: %d \n",calcLowerScore(LowerCats.LargeStraight, jokerRules));
+        if(player.getLowerScores(5) == -1) System.out.printf("\t(12) Lower YAHTZEE Score: %d \n",calcLowerScore(LowerCats.YAHTZEE, jokerRules));
+        if(player.getLowerScores(6) == -1) System.out.printf("\t(13) Lower Chance Score: %d \n",calcLowerScore(LowerCats.Chance, jokerRules));
     }
 
     private int calcSingleTotal(int num){
@@ -469,7 +472,7 @@ public class UrishDiceGame {
                 changed = true;
             }
         }
-        if(eval(5) && changed) {
+        if(changed) {
             ifykyk = new String(chars);
             System.out.println(";) " + ifykyk);
         }
