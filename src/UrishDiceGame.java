@@ -119,7 +119,7 @@ public class UrishDiceGame {
 
     private void runGameLoop(int startPlayer){
         rounds = 0;
-        while(rounds < 1){
+        while(rounds < 13){
             rounds++;
             System.out.printf("Round %d\n", rounds);
             try {
